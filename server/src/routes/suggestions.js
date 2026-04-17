@@ -49,17 +49,22 @@ router.post("/", async (req, res, next) => {
       "Return exactly 3 suggestions as JSON per the schema.",
     ].join("\n");
 
-    const out = await groqChat({
-      apiKey,
-      model,
-      temperature,
-      maxTokens,
-      responseFormat: { type: "json_object" },
-      messages: [
-        { role: "system", content: sysPrompt },
-        { role: "user", content: userMsg },
-      ],
-    });
+    const messages = [
+      { role: "system", content: sysPrompt },
+      { role: "user", content: userMsg },
+    ];
+
+    let out;
+    for (let attempt = 0; attempt <= 2; attempt++) {
+      try {
+        out = await groqChat({ apiKey, model, temperature, maxTokens, responseFormat: { type: "json_object" }, messages });
+        break;
+      } catch (err) {
+        const isJsonFail = err.message?.includes("json_validate_failed") || err.message?.includes("Failed to validate JSON");
+        if (!isJsonFail || attempt === 2) throw err;
+        await new Promise((r) => setTimeout(r, 500 * (attempt + 1)));
+      }
+    }
 
     const raw = out?.choices?.[0]?.message?.content || "{}";
     let parsed;
