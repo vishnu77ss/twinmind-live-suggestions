@@ -8,8 +8,8 @@ Always-on AI meeting copilot. Listens to your mic, transcribes in ~30-second chu
 
 ## Live demo + code
 
-- **Deployed app:** _paste your Vercel URL here after deploying_
-- **Repository:** _paste your GitHub URL here_
+- **Deployed app:** https://twinmind-live-suggestions-liart.vercel.app
+- **Repository:** https://github.com/vishnu77ss/twinmind-live-suggestions
 
 The app is BYO-key: paste your own Groq key in Settings. No key is stored on the server; it's forwarded per-request only.
 
