@@ -1,0 +1,26 @@
+# deps
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# env / secrets
+.env
+.env.local
+.env.*.local
+
+# builds
+client/dist/
+server/dist/
+
+# editor
+.vscode/
+.idea/
+.DS_Store
+
+# logs
+*.log
+npm-debug.log*
+
+# vercel
+.vercel/
